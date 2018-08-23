@@ -1,6 +1,8 @@
 let text=document.getElementById("text-id");
 let nbr=document.querySelectorAll(".button");
 let operande="";
+let str="";
+let result=0;
 for(let i of nbr) { 
    i.addEventListener("click",(event)=>{
      
@@ -15,36 +17,25 @@ for(let i of nbr) {
      });
 }
 let opr=document.querySelectorAll(".button-operator");
-let tab=[];
 for(let j of opr)
   {
      j.addEventListener("click",(event)=>{ 
-        tab.push(operande);
+        str=str.concat(operande);
         text.value=event.target.value; 
-        tab.push(text.value);
+        str=str.concat(text.value);
       });
   }
 
 let equal=document.querySelector(".button-equal");
-let result=0;
 equal.addEventListener("click",(event)=>{
-  tab.push(text.value);
-  result=parseFloat(tab[0]);
-   for(let i=1;tab.length-1;i=i+2){
-     switch(tab[i]){
-       case "+":result=(result+parseFloat(tab[i+1]));break;
-       case "-":result=(result-parseFloat(tab[i+1]));break;
-       case "*":result=(result*parseFloat(tab[i+1]));break;
-       case "/":result=(result/parseFloat(tab[i+1]));break;
-       default:text.value=0;
-     }  
-   }
-   text.value=result;
+  str=str.concat(text.value);
+  result=eval(str);
+  text.value=result;
 });
 let suppr=document.querySelector(".button-suppr");
 suppr.addEventListener("click",(event)=>{
    text.value="";
-   tab=[];  
   operande="";
+  str="";
   result=0;
 });
